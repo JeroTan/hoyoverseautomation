@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo 'There is nothing to build actually'",
     "serve": "node --inspect index.js"
   },
   "author": "",
