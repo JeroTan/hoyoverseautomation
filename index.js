@@ -40,8 +40,9 @@ const hsr = new HonkaiStarRail({
     lang: LanguageEnum.ENGLISH, // optional
     uid: 802617609, // Several modules will require UID, which if not filled in will throw an error.
   })
-
-
+const timeNow = new Date
+let hourTimer = ((timeNow.getHours() - 5)+24)%24
+let minuteTimer = timeNow.getMinutes();
 async function allAutomate(){
     const giclaim = await genshin.daily.claim();
     const honkai3rdclaim = await honkai3rd.daily.claim();
@@ -53,4 +54,15 @@ async function allAutomate(){
     const hsrreward = await hsr.daily.reward();
     console.log(gireward, honkai3rdreward, hsrreward);
 }
-allAutomate();
+
+
+setInterval(()=>{
+    minuteTimer = (minuteTimer+1)%60
+    if(minuteTimer == 0){
+        hourTimer++
+    }
+    console.log(`time check: ${hourTimer}h ${minuteTimer}m`)
+    if(hourTimer == 0){
+        allAutomate();
+    }
+}, 1000*60)
