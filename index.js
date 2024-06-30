@@ -56,7 +56,7 @@ async function allAutomate(){
     console.log(gireward, honkai3rdreward, hsrreward);
 }
 
-
+allAutomate();
 setInterval(()=>{
     secondTimer = (secondTimer+1)%60
     if(secondTimer == 0){
