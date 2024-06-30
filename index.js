@@ -43,6 +43,7 @@ const hsr = new HonkaiStarRail({
 const timeNow = new Date
 let hourTimer = ((timeNow.getHours() - 5)+24)%24
 let minuteTimer = timeNow.getMinutes();
+let secondTimer = timeNow.getSeconds();
 async function allAutomate(){
     const giclaim = await genshin.daily.claim();
     const honkai3rdclaim = await honkai3rd.daily.claim();
@@ -57,12 +58,16 @@ async function allAutomate(){
 
 
 setInterval(()=>{
-    minuteTimer = (minuteTimer+1)%60
-    if(minuteTimer == 0){
-        hourTimer++
+    secondTimer = (secondTimer+1)%60
+    if(secondTimer == 0){
+        minuteTimer = (minuteTimer+1)%60
     }
-    console.log(`time check: ${hourTimer}h ${minuteTimer}m`)
+    if(minuteTimer == 0){
+        hourTimer = (hourTimer+1)%24
+    }
+    console.log(`time check: ${hourTimer}h ${minuteTimer}m ${secondTimer}s`)
     if(hourTimer == 0){
+        console.log('Checking in!!!')
         allAutomate();
     }
-}, 1000*60)
+}, 1000)
